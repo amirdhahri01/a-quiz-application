@@ -2,7 +2,11 @@ import React from 'react'
 
 const LoadingScreen = () => {
   return (
-    <div>LoadingScreen</div>
+    <main>
+      <div className="loading">
+        
+      </div>
+    </main>
   )
 }
 

@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
 
 const Model = () => {
   return (
-    <div>Model</div>
-  )
-}
+    <div className="model-container isOpen">
+      <div className="model-content">
+        <h2>congrats</h2>
+        <p>You answered n questions correctly</p>
+        <button className="close-btn">play again</button>
+      </div>
+    </div>
+  );
+};
 
-export default Model
+export default Model;
