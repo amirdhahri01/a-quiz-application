@@ -4,19 +4,19 @@ import { useContext, useState, createContext } from "react";
 const table = {
   sports: 19,
   history: 23,
-  politics: 24
-}
+  politics: 24,
+};
 
 const AppContext = createContext();
 
-const AppProvider = ({ Children }) => {
+const AppProvider = ({ children }) => {
   const [waiting, setWainting] = useState(true);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [index, setIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [error, setError] = useState(false);
-  const [quizs, setQuizs] = useState({
+  const [quiz, setQuiz] = useState({
     amount: 10,
     category: "sports",
     difficulty: "ease",
@@ -45,48 +45,66 @@ const AppProvider = ({ Children }) => {
     }
   };
 
-  const openModel = ()=>{
+  const openModel = () => {
     setModal(true);
-  }
+  };
 
-  const closeModel = ()=>{
+  const closeModel = () => {
     setModal(false);
     setWainting(true);
     setCorrect(0);
-  }
+  };
 
-  const nextQuestion = ()=>{
-    setIndex(oldIndex => {
+  const nextQuestions = () => {
+    setIndex((oldIndex) => {
       const index = oldIndex + 1;
-      if(index > oldIndex.length - 1){
+      if (index > oldIndex.length - 1) {
         openModel();
         return 0;
-      }else{
+      } else {
         return index;
       }
-    })
-  }
+    });
+  };
 
   const checkAnswers = (value) => {
-    if(value){
-      setCorrect(oldState => oldState+1)
+    if (value) {
+      setCorrect((oldState) => oldState + 1);
     }
-    nextQuestion();
-  }
+    nextQuestions();
+  };
 
-  const handleChange = (e)=>{
-    const {name , value} = e.target;
-    setQuizs(oldQuizs => [...oldQuizs , [name , value]]);
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setQuiz((oldQuizs) => [...oldQuizs, [name, value]]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const [amount , difficulty , category] = quiz;
-    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}$category=${table[category]}&type=${}`;
+    const [amount, difficulty, category] = quiz;
+    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}$category=${table[category]}&type=${amount}`;
     fetchQuestions(url);
   };
 
-  return <AppContext.Provider value={waiting,loading,questions,index,correct,error,quizs,nextQuestion(),checkAnswers(),handleSubmit(),handleChange()}>{Children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider
+      value={[
+        waiting,
+        loading,
+        questions,
+        index,
+        correct,
+        error,
+        quiz,
+        nextQuestions,
+        checkAnswers,
+        handleSubmit,
+        handleChange,
+      ]}
+    >
+      {children}
+    </AppContext.Provider>
+  );
 };
 export const useGlobalContext = () => {
   return useContext(AppContext);
