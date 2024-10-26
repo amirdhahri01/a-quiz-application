@@ -20,15 +20,46 @@ function App() {
   if (loading) {
     return <LoadingScreen />;
   }
+
+  const { incorrect_answers, correct_answer, question } = questions[index];
+  let answers = [...incorrect_answers];
+  const tempIndex = Math.floor(Math.random() * 4);
+  if (tempIndex === 3) {
+    answers.push(correct_answer);
+  } else {
+    answers.push(answers[tempIndex]);
+    answers[tempIndex] = correct_answer;
+  }
+
   return (
     <main>
       <section className="quiz">
-        <p className="correct-answers">correct Answers : 3</p>
+        <p className="correct-answers">
+          correct Answers : {correct}/{index}
+        </p>
         <article className="container">
-          <h2>Text</h2>
-          <div className="btn-container"></div>
+          <h2 dangerouslySetInnerHTML={{ __html: question }} />
+          <div className="btn-container">
+            {answers.map((answer, index) => {
+              return (
+                <button
+                  key={index}
+                  className="answer-btn"
+                  onClick={() => checkAnswers(correct_answer === answer)}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                ></button>
+              );
+            })}
+          </div>
         </article>
-        <button className="next-question">next questions</button>
+        <button
+          className="next-question"
+          onClick={() => {
+            nextQuestions();
+          }}
+        >
+          next questions
+        </button>
       </section>
     </main>
   );

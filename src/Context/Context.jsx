@@ -96,6 +96,7 @@ const AppProvider = ({ children }) => {
         correct,
         error,
         quiz,
+        modal,
         nextQuestions,
         checkAnswers,
         handleSubmit,
