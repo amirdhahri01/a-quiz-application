@@ -21,10 +21,11 @@ const AppProvider = ({ children }) => {
     category: "sports",
     difficulty: "ease",
   });
+
   const [modal, setModal] = useState(false);
 
   const fetchQuestions = async (url) => {
-    setLoading(false);
+    setLoading(true);
     setWainting(false);
     const response = await axios
       .get(url)
@@ -76,19 +77,21 @@ const AppProvider = ({ children }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setQuiz((oldQuizs) => [...oldQuizs, [name, value]]);
+    setQuiz((oldQuiz) => {
+      return { ...oldQuiz, [name]: value };
+    });
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
-    const [amount, difficulty, category] = quiz;
-    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}$category=${table[category]}&type=${amount}`;
+    const { amount, difficulty, category } = quiz;
+    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}$category=${table[category]}&type=multiple`;
     fetchQuestions(url);
-  };
+};
 
   return (
     <AppContext.Provider
-      value={[
+      value={{
         waiting,
         loading,
         questions,
@@ -101,7 +104,8 @@ const AppProvider = ({ children }) => {
         checkAnswers,
         handleSubmit,
         handleChange,
-      ]}
+        closeModel,
+      }}
     >
       {children}
     </AppContext.Provider>

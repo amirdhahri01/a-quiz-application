@@ -1,6 +1,6 @@
 import { useGlobalContext } from "../Context/Context";
 const SetupForm = () => {
-  const [quiz, handleChange, handleSubmit, error] = useGlobalContext();
+  const { quiz, handleChange, handleSubmit, error } = useGlobalContext();
   return (
     <main>
       <div className="quiz quiz-small">
@@ -13,9 +13,7 @@ const SetupForm = () => {
               name="amount"
               id="amount"
               value={quiz.value}
-              onChange={(e) => {
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e)}
               className="form-input"
             />
           </div>
@@ -26,9 +24,7 @@ const SetupForm = () => {
               id="category"
               className="form-input"
               value={quiz.category}
-              handleChange={(e) => {
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e)}
             >
               <option value="sports">sports</option>
               <option value="history">history</option>
@@ -42,9 +38,7 @@ const SetupForm = () => {
               id="difficulty"
               className="form-input"
               value={quiz.difficulty}
-              handleChange={(e) => {
-                handleChange(e);
-              }}
+              onChange={(e) => handleChange(e)}
             >
               <option value="ease">easy</option>
               <option value="medium">medium</option>
@@ -59,9 +53,7 @@ const SetupForm = () => {
           <button
             type="submit"
             className="submit-btn"
-            onSubmit={(e) => {
-              handleSubmit(e);
-            }}
+            onSubmit={(e) => handleSubmit(e)}
           >
             start
           </button>

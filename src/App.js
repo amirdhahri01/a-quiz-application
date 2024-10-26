@@ -4,7 +4,7 @@ import SetupForm from "./Form/SetupForm";
 import LoadingScreen from "./Loading/LoadingScreen";
 import Modal from "./Model/Modal";
 function App() {
-  const [
+  const {
     waiting,
     loading,
     questions,
@@ -12,7 +12,7 @@ function App() {
     index,
     nextQuestions,
     checkAnswers,
-  ] = useGlobalContext();
+  } = useGlobalContext();
 
   if (waiting) {
     return <SetupForm />;
