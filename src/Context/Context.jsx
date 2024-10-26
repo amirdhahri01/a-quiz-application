@@ -25,6 +25,7 @@ const AppProvider = ({ children }) => {
   const [modal, setModal] = useState(false);
 
   const fetchQuestions = async (url) => {
+    console.log(url);
     setLoading(true);
     setWainting(false);
     const response = await axios

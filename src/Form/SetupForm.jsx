@@ -12,7 +12,7 @@ const SetupForm = () => {
               type="number"
               name="amount"
               id="amount"
-              value={quiz.value}
+              value={quiz.amount}
               onChange={(e) => handleChange(e)}
               className="form-input"
             />
@@ -53,7 +53,7 @@ const SetupForm = () => {
           <button
             type="submit"
             className="submit-btn"
-            onSubmit={(e) => handleSubmit(e)}
+            onClick={(e) => handleSubmit(e)}
           >
             start
           </button>
