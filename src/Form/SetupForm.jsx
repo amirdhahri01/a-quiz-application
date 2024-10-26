@@ -40,7 +40,7 @@ const SetupForm = () => {
               value={quiz.difficulty}
               onChange={(e) => handleChange(e)}
             >
-              <option value="ease">easy</option>
+              <option value="easy">easy</option>
               <option value="medium">medium</option>
               <option value="hard">hard</option>
             </select>

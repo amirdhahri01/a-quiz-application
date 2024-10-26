@@ -19,7 +19,7 @@ const AppProvider = ({ children }) => {
   const [quiz, setQuiz] = useState({
     amount: 10,
     category: "sports",
-    difficulty: "ease",
+    difficulty: "easy",
   });
 
   const [modal, setModal] = useState(false);
@@ -86,7 +86,7 @@ const AppProvider = ({ children }) => {
 const handleSubmit = (e) => {
     e.preventDefault();
     const { amount, difficulty, category } = quiz;
-    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}$category=${table[category]}&type=multiple`;
+    const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&category=${table[category]}&type=multiple`;
     fetchQuestions(url);
 };
 
